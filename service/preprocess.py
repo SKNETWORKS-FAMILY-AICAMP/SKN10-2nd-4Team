@@ -48,16 +48,16 @@ def process_clusters(data_path, df):
     os.makedirs(data_path, exist_ok=True)
 
     file_cluster_0 = os.path.join(data_path, "Cluster_0_Filtered.csv")
-    # file_cluster_3 = os.path.join(data_path, "Cluster_3_Filtered.csv")
+    file_cluster_3 = os.path.join(data_path, "Cluster_3_Filtered.csv")
 
     df_cluster_0 = df[(df["Age"] >= 44) & (df["EstimatedSalary"] >= 100000) & (df["NumOfProducts"] >= 1)]
     df_cluster_3 = df[(df["Age"] <= 40) & (df["EstimatedSalary"] >= 70000) & (df["Balance"] >= 90000) & (df["Loyalty_Score"] >= 26)]
     
     df_cluster_0.to_csv(file_cluster_0, index=False)
-    # df_cluster_3.to_csv(file_cluster_3, index=False)
+    df_cluster_3.to_csv(file_cluster_3, index=False)
     
     print(f"📂 클러스터 0 데이터 저장 완료: {file_cluster_0}")
-    # print(f"📂 클러스터 3 데이터 저장 완료: {file_cluster_3}")
+    print(f"📂 클러스터 3 데이터 저장 완료: {file_cluster_3}")
 
 
 ###########################################################################
@@ -135,8 +135,12 @@ def preprocess(args, dataframe: pd.DataFrame):
 # 실행 파일
 ###########################################################################
 
+###########################################################################
+# 실행 파일 (수정된 run_preprocessing)
+###########################################################################
+
 def run_preprocessing(args):
-    """ 전처리 실행 함수 """
+    """ 전처리 실행 함수 (클러스터 0과 3 모두 적용) """
     print("🚀 데이터 로드 시작...")
     df = load_data()
     print("✅ 원본 데이터 로드 완료")
@@ -149,14 +153,62 @@ def run_preprocessing(args):
     process_clusters("data", df)
     print("✅ 클러스터링 데이터 저장 완료")
     
-    print(f"🚀 클러스터 {args.cluster_num} 데이터 로드...")
-    file_name = f"Cluster_{args.cluster_num}_Filtered.csv"
-    df = load_data(file_name)
-    print("✅ 클러스터 데이터 로드 완료")
+    # 📌 클러스터 0과 3을 모두 처리
+    processed_data = {}
+    for cluster_num in [0, 3]:
+        print(f"🚀 클러스터 {cluster_num} 데이터 로드...")
+        file_name = f"Cluster_{cluster_num}_Filtered.csv"
+        
+        if not os.path.exists(os.path.join("data", file_name)):
+            print(f"❌ 클러스터 {cluster_num} 데이터 파일이 존재하지 않습니다: {file_name}")
+            continue
+        
+        df_cluster = load_data(file_name)
+        print(f"✅ 클러스터 {cluster_num} 데이터 로드 완료 (샘플 수: {df_cluster.shape[0]})")
+        
+        print(f"🚀 클러스터 {cluster_num} 데이터 전처리 시작...")
+        X, y = preprocess(args, df_cluster)
+        print(f"✅ 클러스터 {cluster_num} 데이터 전처리 완료")
+        
+        # 📌 전처리된 데이터를 'data' 폴더에 저장
+        data_dir = "data"
+        os.makedirs(data_dir, exist_ok=True)  # 폴더가 없으면 생성
+
+        processed_file = os.path.join(data_dir, f"Cluster_{cluster_num}_Preprocessed.csv")
+        X["Exited"] = y  # 정답값(이탈 여부) 추가
+        X.to_csv(processed_file, index=False)
+        
+        print(f"✅ 클러스터 {cluster_num} 전처리된 데이터 저장 완료: {processed_file}")
+        
+        # 결과 저장 (모델 학습 시 사용할 수 있도록 반환)
+        processed_data[cluster_num] = (X, y)
     
-    print("🚀 데이터 전처리 시작...")
-    X, y = preprocess(args, df)
-    print("✅ 데이터 전처리 완료")
     print("✅ 최종 전처리 완료!")
+    return processed_data
+
+
+# def run_preprocessing(args):
+#     """ 전처리 실행 함수 """
+#     print("🚀 데이터 로드 시작...")
+#     df = load_data()
+#     print("✅ 원본 데이터 로드 완료")
     
-    return X, y
+#     print("🚀 충성도 점수 추가...")
+#     df = add_loyalty_score(df)
+#     print("✅ 충성도 점수 추가 완료")
+    
+#     print("🚀 클러스터링 데이터 저장...")
+#     process_clusters("data", df)
+#     print("✅ 클러스터링 데이터 저장 완료")
+    
+#     print(f"🚀 클러스터 {args.cluster_num} 데이터 로드...")
+#     file_name = f"Cluster_{args.cluster_num}_Filtered.csv"
+#     df = load_data(file_name)
+#     print("✅ 클러스터 데이터 로드 완료")
+    
+#     print("🚀 데이터 전처리 시작...")
+#     X, y = preprocess(args, df)
+#     print("✅ 데이터 전처리 완료")
+#     print("✅ 최종 전처리 완료!")
+    
+#     return X, y
