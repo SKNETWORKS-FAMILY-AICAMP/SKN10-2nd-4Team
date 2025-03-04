@@ -178,9 +178,9 @@
 # #     else:
 # #         st.warning("📌 먼저 모델과 데이터를 로드하세요!")
 
-
 import os
 import streamlit as st
+from PIL import Image
 import pandas as pd
 import joblib
 import matplotlib.pyplot as plt
@@ -199,8 +199,39 @@ model_files = [f for f in os.listdir(MODEL_DIR) if f.endswith(".pkl")]
 
 # ✅ Streamlit UI 설정
 st.set_page_config(page_title="Churn Prediction", layout="wide")
-st.title("📊 고객 이탈 예측 - 모델 정확도 비교")
 
+# st.title("📊 고객 이탈 예측 - 모델별 정확도 비교")
+# cluster0_model_lgbm = os.path.join(BASE_DIR, "streamlit/img", "cluster0_model_lgbm.png")
+# st.image(cluster0_model_lgbm, caption="클러스터링 최적화 분석 결과", width=200, use_container_width=True)
+# cluster3_model_lgbm = os.path.join(BASE_DIR, "streamlit/img", "cluster3_model_lgbm.png")
+# st.image(cluster3_model_lgbm, caption="클러스터링 최적화 분석 결과", width=200, use_container_width=True)
+
+# ✅ 이미지 경로 설정
+cluster0_model_lgbm_path = os.path.join(BASE_DIR, "streamlit/img", "cluster0_model_lgbm.png")
+cluster3_model_lgbm_path = os.path.join(BASE_DIR, "streamlit/img", "cluster3_model_lgbm.png")
+
+# ✅ 이미지 크기 조절 함수
+def resize_image(image_path, scale=0.5):
+    """Pillow를 사용하여 이미지 크기를 줄이는 함수"""
+    try:
+        image = Image.open(image_path)
+        new_size = (int(image.width * scale), int(image.height * scale))  # 비율 조절
+        resized_image = image.resize(new_size)
+        return resized_image
+    except Exception as e:
+        st.error(f"❌ 이미지 로드 실패: {e}")
+        return None
+
+# ✅ 이미지 로드 및 표시 (PIL을 사용하여 크기 조절)
+cluster0_image = resize_image(cluster0_model_lgbm_path)
+if cluster0_image:
+    st.image(cluster0_image, caption="클러스터 0 - 최적화 분석 결과")
+
+cluster3_image = resize_image(cluster3_model_lgbm_path)
+if cluster3_image:
+    st.image(cluster3_image, caption="클러스터 3 - 최적화 분석 결과")
+
+st.title("📊 고객 이탈 예측 - 두 모델 정확도 비교")
 # 📌 모델 선택 및 로드
 st.sidebar.header("🔍 모델 설정")
 selected_models = st.sidebar.multiselect("비교할 모델 선택 (최대 2개)", model_files, default=model_files[:2])
