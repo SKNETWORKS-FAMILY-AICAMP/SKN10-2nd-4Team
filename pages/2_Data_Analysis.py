@@ -112,42 +112,6 @@ df_applied["Predicted_Exited"] = model.predict(df_applied_input)
 original_exit_rate = df["Predicted_Exited"].mean()
 new_exit_rate = df_applied["Predicted_Exited"].mean()
 
-# # 📌 금융상품 적용 전/후 이탈률 비교 그래프 (수정)
-# st.subheader("📉 금융상품 적용 전후 이탈률 비교")
-# fig, ax = plt.subplots(figsize=(6, 5))  # 차트 크기 조정
-# colors = ["#FF6F61", "#6B8E23"]
-
-# bars = ax.bar(
-#     ["금융상품 적용 전", "금융상품 적용 후"],
-#     [original_exit_rate, new_exit_rate],
-#     color=colors,
-#     alpha=0.85,
-#     width=0.5
-# )
-
-# # ✅ 값 라벨을 막대 안쪽에 넣고 가독성 향상
-# for bar in bars:
-#     height = bar.get_height()
-#     ax.text(
-#         bar.get_x() + bar.get_width()/2,
-#         height - 0.02,  # 위치 조정 (막대 안쪽)
-#         f"{height:.2%}",
-#         ha="center",
-#         fontsize=12,
-#         fontweight="bold",
-#         color="black"
-#     )
-
-# # ✅ 축 및 제목 설정 (레이아웃 정리)
-# ax.set_ylabel("평균 이탈률", fontsize=13, fontweight="bold", labelpad=10)
-# ax.set_title("금융상품 적용에 따른 이탈률 변화", fontsize=15, fontweight="bold", pad=15)
-# ax.tick_params(axis="x", labelsize=12)
-# ax.tick_params(axis="y", labelsize=12)
-
-# # ✅ 테두리 스타일 조정 (깨짐 방지)
-# ax.spines["top"].set_visible(False)
-# ax.spines["right"].set_visible(False)
-
 # st.pyplot(fig)
 # 📌 3️⃣ 금융상품 적용 전/후 이탈률 비교 그래프
 st.subheader("📉 금융상품 적용 전후 이탈률 비교")
@@ -174,78 +138,6 @@ ax.tick_params(axis="y", labelsize=11)
 
 st.pyplot(fig)
 
-
-# # st.pyplot(fig)
-# # ✅ 한국 주요 은행 연평균 매출 데이터 (조 원 단위)
-# bank_revenue_range = (30e12, 40e12)  # 30~40조 원
-# average_customer_range = (15000000, 20000000)  # 고객 수 1500~2000만 명
-
-# # ✅ 1인당 연평균 매출(ARPU) 계산
-# min_arpu = bank_revenue_range[0] / average_customer_range[1]  # 최소 추정값
-# max_arpu = bank_revenue_range[1] / average_customer_range[0]  # 최대 추정값
-
-# # 📌 실제 은행 이용 고객 수 반영
-# actual_total_customers = 15000000  # 실제 은행 고객 수 (1500만 명)
-# dataset_ratio = len(df) / 10000  # 원본 데이터 대비 현재 데이터셋 비율
-# scaled_total_customers = actual_total_customers * dataset_ratio  # 실제 고객 규모 조정
-
-# # ✅ 금융상품 적용 전후 이탈자 수 계산
-# original_exited_count = original_exit_rate * scaled_total_customers
-# new_exited_count = new_exit_rate * scaled_total_customers
-# reduced_exited_count = original_exited_count - new_exited_count  # 줄어든 이탈자 수
-
-# # ✅ 이탈자 감소 효과에 따른 수익 증가 계산
-# average_revenue_per_customer = 500000  # 고객 1명당 평균 연매출 (50만원 가정)
-# estimated_additional_revenue = reduced_exited_count * average_revenue_per_customer  # 예상 추가 수익
-# def format_revenue(amount):
-#     """금액을 'X억 Y천만 원' 형식으로 변환"""
-#     if amount >= 1_0000_0000:  # 1억 이상일 경우
-#         eok = int(amount // 1_0000_0000)  # 억 단위 계산
-#         chonman = int((amount % 1_0000_0000) // 1_0000_000)  # 천만 단위 계산
-#         return f"약 {eok}억 {chonman}천만 원" if chonman > 0 else f"약 {eok}억 원"
-#     elif amount >= 1_0000_000:  # 1천만 이상일 경우
-#         chonman = int(amount // 1_0000_000)
-#         return f"약 {chonman}천만 원"
-#     else:
-#         return f"약 {amount:,.0f} 원"
-# # 📌 사용자 입력을 통한 은행 매출 기반 ARPU 계산
-# st.sidebar.subheader("📊 현실적인 ARPU 계산")
-# total_bank_revenue = st.sidebar.number_input("은행 연매출 (조 원 단위)", min_value=10, max_value=50, value=35) * 1_0000_0000_0000
-# total_bank_customers = st.sidebar.number_input("은행 총 고객 수 (만 명)", min_value=1000, max_value=3000, value=1500) * 10000
-
-# # ✅ 사용자가 입력한 은행 매출 및 고객 수 기반 ARPU 계산
-# calculated_arpu = total_bank_revenue / total_bank_customers
-
-# st.sidebar.write(f"📌 계산된 1인당 연평균 매출 (ARPU): **{calculated_arpu:,.0f} 원**")
-
-# # ✅ 고객 1명당 평균 연매출 (계산된 값 적용)
-# average_revenue_per_customer = calculated_arpu  
-
-
-# # ✅ Streamlit에서 ARPU 선택할 수 있도록 설정
-# st.sidebar.header("📊 평균 고객 연매출 (ARPU) 설정")
-# selected_arpu = st.sidebar.slider(
-#     "1인당 연평균 매출 (ARPU) 설정",
-#     min_value=int(min_arpu),
-#     max_value=int(max_arpu),
-#     value=3000000,  # 기본값: 300만 원
-#     step=100000  # 10만 원 단위 조정 가능
-# )
-
-# # ✅ 이탈자 감소 효과에 따른 수익 증가 계산
-# estimated_additional_revenue = reduced_exited_count * selected_arpu
-
-# # ✅ 가독성 높은 수익 표시
-# st.subheader("💰 금융상품 도입 시 예상 이익 분석")
-# st.markdown(f"""
-# - **한국 주요 은행 연평균 매출**: 30~40조 원
-# - **평균 고객 수**: 1500~2000만 명
-# - **추정 1인당 연매출 (ARPU)**: {selected_arpu:,.0f} 원
-# - 금융상품 적용 전 예상 이탈자 수: **{original_exited_count:,.0f} 명**
-# - 금융상품 적용 후 예상 이탈자 수: **{new_exited_count:,.0f} 명**
-# - **줄어든 이탈자 수: {reduced_exited_count:,.0f} 명**
-# - **추가 예상 이익: {format_revenue(estimated_additional_revenue)}**
-# """)
 
 # 📌 한국 주요 은행 연평균 매출 데이터 (조 원 단위)
 bank_revenue_range = (30e12, 40e12)  # 30~40조 원
