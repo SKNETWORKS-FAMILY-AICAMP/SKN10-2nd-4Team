@@ -426,10 +426,5 @@ Sage Journal - *Reducing Adverse Selection through Customer Relationship Managem
 
 
 # 7. 한 줄 회고
->박유진: Logis<br>
->서예찬: 이번미터 조정 등을 통해 model의 성능을 높이는 과정에 대해 이해도가 높아진 것 같다. <br>
->조이현: EDA 과정 <br>
->허정윤: 앙상블 모델을 voting <br>
->조이현: EDA 과정 <br>
->허정윤: 앙상블 모델을 voting <br>
+>문승기: 부족한 실력이라 열심히 참여하는게 전부였는데 좋게 봐주시고, 제가 할 수 있는 최선을 다했다고 생각이 들어 뿌듯했습니다. 또한, 다양한 관점에서 프로젝트를 바라볼 수 있는 좋은 기회였다고 생각합니다.
 <br>
