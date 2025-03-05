@@ -9,7 +9,7 @@
 >
 >### 팀명: SKN Bank DataScienceteam
 >
->![Image]()
+>![Main Page](readme_img/main_page.jpg)
 ><br>
 
 >### 팀원 소개
@@ -195,19 +195,19 @@ Sage Journal - *Reducing Adverse Selection through Customer Relationship Managem
 
 # 6. 수행결과
 >✅메인 페이지
-><img width="1679" alt="스크린샷 2025-02-14 오후 12 42 20" src="" />
+>![Page 1](readme_img/main_page1.jpg)
+![Page 1-1](readme_img/main_page_1.jpg)
+![Page 1-2](readme_img/main_page_2.jpg)
 
 >✅예측 페이지
-><img width="1679" alt="스크린샷 2025-02-14 오후 12 42 33" src="" />
+![Page 1](readme_img/page1.jpg)
+![Page 1-1](readme_img/page1_1.jpg)
+![Page 1-2](readme_img/page1_2.jpg)
 
 >✅분석 페이지
-><img width="1680" alt="스크린샷 2025-02-14 오후 12 42 53" src="" />
-
->✅분석 페이지 필터링 적용 1
-><img width="1680" alt="스크린샷 2025-02-14 오후 12 43 10" src="" />
-
->✅분석 페이지 필터링 적용 2
-><img width="1680" alt="스크린샷 2025-02-14 오후 12 43 25" src="" />
+![Page 2](readme_img/page2.jpg)
+![Page 2-1](readme_img/page2_1.jpg)
+![Page 2-2](readme_img/page2_2.jpg)
 
 <br>
 
