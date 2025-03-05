@@ -12,75 +12,48 @@
 >![Main Page](readme_img/main_page.jpg)
 ><br>
 
->### 팀원 소개
-><table align=center>
->  <tbody>
->   <tr>
->    <br>
->      <td align=center><b>편성민</b></td>
->      <td align=center><b>김민혜</b></td>
->     <td align=center><b>문승기</b></td>
->      <td align=center><b>이종원</b></td>
->     <td align=center><b>이태수</b></td>
->      <td align=center><b>조영훈</b></td>
->    </tr>
->    <tr>
->      <td align="center">
->          <img alt="Image" src="" width="200px;" alt="편성민"/>
->      <td align="center">
->          <img alt="Image" src="" width="200px;" alt="김민혜"/>
->      </td>
->      <td align="center">
->        <img alt="Image" src="" width="200px;"alt="문승기" />
->      </td>
->      <td align="center">
->        <img alt="Image" src="" width="200px;" alt="이종원"/>
->      </td>
->      <td align="center">
->        <img alt="Image" src="" width="200px;"alt="이태수" />
->      </td>
->      <td align="center">
->        <img alt="Image" src="" width="200px;" alt="조영훈"/>
->      </td>
->    </tr>
->    <tr>
->      <td><a href="https://github.com/PyeonMin"><div align=center>@PyeonMin</div></a></td>
->      <td><a href="https://github.com/kkminhye"><div align=center>@kkminhye</div></a></td>
->      <td><a href="https://github.com/tmdekd"><div align=center>@tmdekd</div></a></td>
->      <td><a href="https://github.com/sto-lee"><div align=center>@sto-lee</div></a></td>
->      <td><a href="https://github.com/beartaesu"><div align=center>@beartaesu</div></a></td>
->      <td><a href="https://github.com/yhcho0319"><div align=center>@yhcho0319</div></a></td>
->        <td align="center">
->        <img alt="팀장: 편성민" src="https://github.com/user-attachments/assets/3d06d502-2cf6-40a0-889f-9ad945bd36fc" width="200px;" height="120px;" />
->        </td>
->        <td align="center">
->        <img alt="팀원: 이종원" src="https://github.com/user-attachments/assets/90c1fe3e-69ef-4f36-bc8f-82b122c38867" width="200px;" height="120px;" />
->        </td>
->        <td align="center">
->        <img alt="팀원: 문승기" src="https://github.com/user-attachments/assets/c3543b79-3ed2-4c4c-8e0c-e34ca014bc4d" width="200px;" height="120px;" />
->        </td>
->        <td align="center">
->        <img alt="팀원: 조영훈" src="https://github.com/user-attachments/assets/6ec1521a-55ea-4806-9100-3c896093b713" width="200px;" height="120px;" />
->        </td>
->        <td align="center">
->        <img alt="팀원: 이태수" src="https://github.com/user-attachments/assets/75c8c731-f576-41cd-ac43-d3e1e466dbb6" width="200px;" height="120px;" />
->        </td>
->        <td align="center">
->        <img alt="팀원: 김민혜" src="https://github.com/user-attachments/assets/a1ebd4b8-f455-4be7-89b3-b28f650e14e0" width="200px;" height="120px;" />
->        </td>
->    </tr>
->    <tr>
->      <td><a href="https://github.com/YUJINDL01"><div align=center>@YUJINDL01</div></a></td>
->      <td><a href="https://github.com/syc9811"><div align=center>@syc9811</div></a></td>
->      <td><a href="https://github.com/SIQRIT"><div align=center>@SIQRIT</div></a></td>
->      <td><a href="https://github.com/devunis"><div align=center>@devunis</div></a></td>
->      <td><a href="https://github.com/SIQRIT"><div align=center>@SIQRIT</div></a></td>
->      <td><a href="https://github.com/devunis"><div align=center>@devunis</div></a></td>
->    </tr>
->  </tbody>
-></table>
-><br>
->
+### 팀원 소개
+<table align="center">
+  <tbody>
+    <tr>
+      <td align="center"><b>편성민</b></td>
+      <td align="center"><b>김민혜</b></td>
+      <td align="center"><b>문승기</b></td>
+      <td align="center"><b>이종원</b></td>
+      <td align="center"><b>이태수</b></td>
+      <td align="center"><b>조영훈</b></td>
+    </tr>
+    <tr>
+      <td align="center">
+        <img alt="팀장: 편성민" src="https://github.com/user-attachments/assets/3d06d502-2cf6-40a0-889f-9ad945bd36fc" width="200px;" height="120px;" />        
+      </td>
+      <td align="center">
+        <img alt="팀원: 김민혜" src="https://github.com/user-attachments/assets/a1ebd4b8-f455-4be7-89b3-b28f650e14e0" width="200px;" height="120px;" />
+      </td>
+      <td align="center">
+        <img alt="팀원: 문승기" src="https://github.com/user-attachments/assets/c3543b79-3ed2-4c4c-8e0c-e34ca014bc4d" width="200px;" height="120px;" /> 
+      </td>
+      <td align="center">
+        <img alt="팀원: 이종원" src="https://github.com/user-attachments/assets/90c1fe3e-69ef-4f36-bc8f-82b122c38867" width="200px;" height="120px;" /> 
+      </td>
+      <td align="center">
+        <img alt="팀원: 이태수" src="https://github.com/user-attachments/assets/75c8c731-f576-41cd-ac43-d3e1e466dbb6" width="200px;" height="120px;" />
+      </td>
+      <td align="center">
+        <img alt="팀원: 조영훈" src="https://github.com/user-attachments/assets/6ec1521a-55ea-4806-9100-3c896093b713" width="200px;" height="120px;" /> 
+      </td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/PyeonMin"><div align="center">@PyeonMin</div></a></td>
+      <td><a href="https://github.com/kkminhye"><div align="center">@kkminhye</div></a></td>
+      <td><a href="https://github.com/tmdekd"><div align="center">@tmdekd</div></a></td>
+      <td><a href="https://github.com/sto-lee"><div align="center">@sto-lee</div></a></td>
+      <td><a href="https://github.com/beartaesu"><div align="center">@beartaesu</div></a></td>
+      <td><a href="https://github.com/yhcho0319"><div align="center">@yhcho0319</div></a></td>
+    </tr>
+  </tbody>
+</table>
+
 
 
 # 1. SKN Bank 고객 이탈 예측 및 금융상품 최적화 시스템
