@@ -192,8 +192,6 @@ if st.button("📊 분석 과정 보기"):
 
 if st.button("🛠 군집 분석"):
     st.subheader("타겟 군집 선택")
-    cluster_image_path = os.path.join(BASE_DIR, "streamlit/img", "ClusterStrategy.jpg")
-    st.image(cluster_image_path, caption="클러스터 전략", use_container_width=True)    
     st.write("""
     - 모든 고객의 이탈률을 줄이는 것은 **비용과 시간** 측면에서 비효율적  
     - 금융상품 제공 시 **가장 효과적인 군집**을 선정하는 것이 중요  
@@ -208,3 +206,6 @@ if st.button("🛠 군집 분석"):
       → **VIP 서비스 강화, 맞춤형 금융상품 제공** 등의 전략이 효과적  
     """)
 
+    cluster_image_path = os.path.join(BASE_DIR, "streamlit/img", "ClusterStrategy.jpg")
+    st.image(cluster_image_path, caption="클러스터 전략", use_container_width=True)    
+    
