@@ -9,11 +9,7 @@
 >
 >### 팀명: SKN Bank DataScienceteam
 >
-<<<<<<< HEAD
 >![Main Page](readme_img/main_page.jpg)
-=======
->![Image]()
->>>>>>> 327b64647d8d4fc79f512bab7e0ea16b61ac240a
 ><br>
 
 >### 팀원 소개
@@ -29,7 +25,6 @@
 >      <td align=center><b>조영훈</b></td>
 >    </tr>
 >    <tr>
-<<<<<<< HEAD
 >      <td align="center">
 >          <img alt="Image" src="" width="200px;" alt="편성민"/>
 >      <td align="center">
@@ -55,7 +50,6 @@
 >      <td><a href="https://github.com/sto-lee"><div align=center>@sto-lee</div></a></td>
 >      <td><a href="https://github.com/beartaesu"><div align=center>@beartaesu</div></a></td>
 >      <td><a href="https://github.com/yhcho0319"><div align=center>@yhcho0319</div></a></td>
-=======
 >        <td align="center">
 >        <img alt="팀장: 편성민" src="https://github.com/user-attachments/assets/3d06d502-2cf6-40a0-889f-9ad945bd36fc" width="200px;" height="120px;" />
 >        </td>
@@ -82,7 +76,6 @@
 >      <td><a href="https://github.com/devunis"><div align=center>@devunis</div></a></td>
 >      <td><a href="https://github.com/SIQRIT"><div align=center>@SIQRIT</div></a></td>
 >      <td><a href="https://github.com/devunis"><div align=center>@devunis</div></a></td>
->>>>>>> 327b64647d8d4fc79f512bab7e0ea16b61ac240a
 >    </tr>
 >  </tbody>
 ></table>
@@ -221,9 +214,7 @@ Sage Journal - *Reducing Adverse Selection through Customer Relationship Managem
 
 ----
 
-<<<<<<< HEAD
 # 5. 인공지능 학습 결과서
-=======
 # 인공지능 학습 결과서
 
 ## ✅ 데이터 개요
@@ -433,14 +424,12 @@ Sage Journal - *Reducing Adverse Selection through Customer Relationship Managem
   - 클러스터별로 적합한 금융상품을 적용했을 때, 고객 이탈률 변화가 어떻게 나타나는지를 보다 명확하게 분석하기 위해 RandomForest를 선택
   - LGBM은 동일한 확률값을 여러 샘플에서 반복적으로 출력하는 경향이 있는 반면, RandomForest는 **더 다양한 확률값을 제공**하여 개별 고객의 세부적인 변화를 파악하기 용이
   - 이를 통해 금융상품 변화에 따른 고객 이탈 가능성을 더욱 세밀하게 측정할 수 있음
->>>>>>> 327b64647d8d4fc79f512bab7e0ea16b61ac240a
 
 ---
 
 
 # 6. 수행결과
 >✅메인 페이지
-<<<<<<< HEAD
 >![Page 1](readme_img/main_page1.jpg)
 ![Page 1-1](readme_img/main_page_1.jpg)
 ![Page 1-2](readme_img/main_page_2.jpg)
@@ -454,7 +443,6 @@ Sage Journal - *Reducing Adverse Selection through Customer Relationship Managem
 ![Page 2](readme_img/page2.jpg)
 ![Page 2-1](readme_img/page2_1.jpg)
 ![Page 2-2](readme_img/page2_2.jpg)
-=======
 ><img width="1679" alt="스크린샷 2025-02-14 오후 12 42 20" src="" />
 
 >✅예측 페이지
@@ -468,7 +456,6 @@ Sage Journal - *Reducing Adverse Selection through Customer Relationship Managem
 
 >✅분석 페이지 필터링 적용 2
 ><img width="1680" alt="스크린샷 2025-02-14 오후 12 43 25" src="" />
->>>>>>> 327b64647d8d4fc79f512bab7e0ea16b61ac240a
 
 <br>
 
@@ -478,14 +465,11 @@ Sage Journal - *Reducing Adverse Selection through Customer Relationship Managem
 
 
 # 7. 한 줄 회고
-<<<<<<< HEAD
 >편성민:이번 프로젝트는 데이터 선택부터 전체 기획까지 적극적으로 참여해서 진행했습니다. 해보고 싶은게 많아서 팀장 역할을 맡아 일을 늘렸습니다. 처음엔 팀원들이 싫어할줄알고 살짝 걱정했지만 다행히 다들 적극적으로 참여해주셔서 팀원들과 함께 즐겁게 프로젝트를 진행했습니다. 부족한게 많아 일 진행이 더뎠지만 팀원들이 열심히 따라줘서 진행이 순조로웠고 이번 프로젝트를 진행하며 많이 배웠습니다. 감사합니다.<br>
 >: 이번미터 조정 등을 통해 model의 성능을 높이는 과정에 대해 이해도가 높아진 것 같다. <br>
 >: EDA 과정 <br>
 >: 앙상블 모델을 voting <br>
 >: EDA 과정 <br>
 >: 앙상블 모델을 voting <br>
-=======
 >문승기: 부족한 실력이라 열심히 참여하는게 전부였는데 좋게 봐주시고, 제가 할 수 있는 최선을 다했다고 생각이 들어 뿌듯했습니다. 또한, 다양한 관점에서 프로젝트를 바라볼 수 있는 좋은 기회였다고 생각합니다.
->>>>>>> 327b64647d8d4fc79f512bab7e0ea16b61ac240a
 <br>
