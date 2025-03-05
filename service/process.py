@@ -89,8 +89,38 @@ def train(args, data, label):
 
     return best_params_list
 
-def final_evaluation(args, train_valid_data, train_valid_label, test_data, test_label, best_params_list):
-    final_params = best_params_list[-1]
+# def final_evaluation(args, train_valid_data, train_valid_label, test_data, test_label, best_params_list):
+#     final_params = best_params_list[-1]
+#     model, _ = get_model_and_params(args.model_type, args.depth)
+    
+#     if args.model_type.lower() == 'xgb':
+#         final_model = XGBClassifier(**final_params, eval_metric='logloss', random_state=42, min_split_gain=0.0, min_child_samples=10)
+#     elif args.model_type.lower() == 'lgbm':
+#         final_model = LGBMClassifier(**final_params, eval_metric='logloss', random_state=42)
+#     else:
+#         final_model = RandomForestClassifier(**final_params, random_state=42)
+    
+#     final_model.fit(train_valid_data, train_valid_label)
+#     pred_test = final_model.predict(test_data)
+#     acc_test = accuracy_score(test_label, pred_test)
+#     f1_test = f1_score(test_label, pred_test)
+#     precision_test = precision_score(test_label, pred_test)
+#     recall_test = recall_score(test_label, pred_test)
+    
+#     print("\n## 최종 테스트 평가 결과")
+#     print(f"  - Accuracy: {acc_test}")
+#     print(f"  - F1-score: {f1_test}")
+#     print(f"  - Precision: {precision_test}")
+#     print(f"  - Recall: {recall_test}")
+
+#     # 모델 저장
+#     os.makedirs("model", exist_ok=True)
+#     model_path = os.path.join("model", f"final_model_{args.model_type}.pkl")
+#     joblib.dump(final_model, model_path)
+#     print(f"✅ 모델 저장 완료: {model_path}")
+
+def final_evaluation(args, train_valid_data, train_valid_label, test_data, test_label, best_params, cluster_num):
+    final_params = best_params[-1]
     model, _ = get_model_and_params(args.model_type, args.depth)
     
     if args.model_type.lower() == 'xgb':
@@ -107,31 +137,66 @@ def final_evaluation(args, train_valid_data, train_valid_label, test_data, test_
     precision_test = precision_score(test_label, pred_test)
     recall_test = recall_score(test_label, pred_test)
     
-    print("\n## 최종 테스트 평가 결과")
+    print(f"\n## 클러스터 {cluster_num} 최종 테스트 평가 결과")
     print(f"  - Accuracy: {acc_test}")
     print(f"  - F1-score: {f1_test}")
     print(f"  - Precision: {precision_test}")
     print(f"  - Recall: {recall_test}")
 
-    # 모델 저장
+    # 모델 저장 (클러스터별 모델)
     os.makedirs("model", exist_ok=True)
-    model_path = os.path.join("model", f"final_model_{args.model_type}.pkl")
+    model_path = os.path.join("model", f"Cluster{cluster_num}_model_{args.model_type}.pkl")
     joblib.dump(final_model, model_path)
-    print(f"✅ 모델 저장 완료: {model_path}")
+    print(f"✅ 클러스터 {cluster_num} 모델 저장 완료: {model_path}")
+
+
+# def run_full_process(args):
+#     print("🚀 데이터 로드 중...")
+#     df = pd.read_csv("data/clustered_Customer_Churn.csv")
+#     X = df.drop('Exited', axis=1)
+#     y = df['Exited']
+#     print("✅ 데이터 로드 완료")
+    
+#     print("🚀 모델 학습 시작...")
+#     best_params = train(args, X, y)
+#     print("✅ 모델 학습 완료")
+    
+#     print("🚀 최종 모델 평가...")
+#     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+#     final_evaluation(args, X_train, y_train, X_test, y_test, best_params)
+    
+#     return best_params
 
 def run_full_process(args):
     print("🚀 데이터 로드 중...")
-    df = pd.read_csv("data/clustered_Customer_Churn.csv")
-    X = df.drop('Exited', axis=1)
-    y = df['Exited']
-    print("✅ 데이터 로드 완료")
+
+    best_params_dict = {}  # 클러스터별 최적 하이퍼파라미터 저장
     
-    print("🚀 모델 학습 시작...")
-    best_params = train(args, X, y)
-    print("✅ 모델 학습 완료")
+    for cluster_num in [0, 3]:
+        file_path = f"data/Cluster_{cluster_num}_Preprocessed.csv"
+        
+        if not os.path.exists(file_path):
+            print(f"❌ 파일 없음: {file_path}, 클러스터 {cluster_num} 데이터가 존재하지 않습니다.")
+            continue
+        
+        print(f"\n📌 클러스터 {cluster_num} 데이터 로드 중...")
+        df = pd.read_csv(file_path)
+        
+        if "Exited" not in df.columns:
+            print(f"❌ 'Exited' 컬럼 없음: {file_path}")
+            continue
+        
+        X = df.drop('Exited', axis=1)
+        y = df['Exited']
+        print(f"✅ 클러스터 {cluster_num} 데이터 로드 완료 (샘플 수: {X.shape[0]})")
+        
+        print(f"🚀 클러스터 {cluster_num} 모델 학습 시작...")
+        best_params = train(args, X, y)
+        best_params_dict[cluster_num] = best_params
+        print(f"✅ 클러스터 {cluster_num} 모델 학습 완료")
+        
+        print(f"🚀 클러스터 {cluster_num} 최종 모델 평가...")
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+        final_evaluation(args, X_train, y_train, X_test, y_test, best_params, cluster_num)
     
-    print("🚀 최종 모델 평가...")
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-    final_evaluation(args, X_train, y_train, X_test, y_test, best_params)
-    
-    return best_params
+    return best_params_dict
