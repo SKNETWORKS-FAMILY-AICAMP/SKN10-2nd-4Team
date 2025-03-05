@@ -186,29 +186,3 @@ def run_preprocessing(args):
     print("✅ 최종 전처리 완료!")
     return processed_data
 
-
-# def run_preprocessing(args):
-#     """ 전처리 실행 함수 """
-#     print("🚀 데이터 로드 시작...")
-#     df = load_data()
-#     print("✅ 원본 데이터 로드 완료")
-    
-#     print("🚀 충성도 점수 추가...")
-#     df = add_loyalty_score(df)
-#     print("✅ 충성도 점수 추가 완료")
-    
-#     print("🚀 클러스터링 데이터 저장...")
-#     process_clusters("data", df)
-#     print("✅ 클러스터링 데이터 저장 완료")
-    
-#     print(f"🚀 클러스터 {args.cluster_num} 데이터 로드...")
-#     file_name = f"Cluster_{args.cluster_num}_Filtered.csv"
-#     df = load_data(file_name)
-#     print("✅ 클러스터 데이터 로드 완료")
-    
-#     print("🚀 데이터 전처리 시작...")
-#     X, y = preprocess(args, df)
-#     print("✅ 데이터 전처리 완료")
-#     print("✅ 최종 전처리 완료!")
-    
-#     return X, y

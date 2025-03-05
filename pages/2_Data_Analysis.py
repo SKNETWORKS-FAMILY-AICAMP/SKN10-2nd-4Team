@@ -64,18 +64,16 @@ df = pd.concat([df_0, df_3], ignore_index=True)
 st.subheader("📊 대상 고객 데이터 미리보기")
 st.write(df.head())
 
-# ✅ 2️⃣ 금융상품 선택 (Case 기반)
+# ✅ 2️⃣ 금융상품 선택
 st.subheader("💳 금융상품 선택")
 selected_products = st.multiselect(
     "적용할 금융상품을 선택하세요 (최대 2개)",
     [
         "이탈 고객 활동 멤버 전환",
-        "가입 기간 반영 신용 점수 증가",
         "연이율 3% 복리 금융상품 가입 (2년)",
         "신용카드 신규 가입 + 포인트 지급",
-        "비활동 유저의 로열티 증가"
     ],
-    default=["신용카드 신규 가입 + 포인트 지급", "연이율 3% 복리 금융상품 가입 (2년)"]
+    # default=["신용카드 신규 가입 + 포인트 지급", "연이율 3% 복리 금융상품 가입 (2년)"]
 )
 
 # ✅ 금융상품 적용 가정
@@ -84,9 +82,6 @@ df_applied = df.copy()
 if "이탈 고객 활동 멤버 전환" in selected_products:
     df_applied.loc[df_applied["IsActiveMember"] == 0, "IsActiveMember"] = 1
 
-if "가입 기간 반영 신용 점수 증가" in selected_products:
-    df_applied["CreditScore"] += 30 * (df_applied["Tenure"] / df_applied["Tenure"].max())
-
 if "연이율 3% 복리 금융상품 가입 (2년)" in selected_products:
     df_applied["Balance"] *= 1.0609
     df_applied["Tenure"] += 2
@@ -94,127 +89,139 @@ if "연이율 3% 복리 금융상품 가입 (2년)" in selected_products:
 if "신용카드 신규 가입 + 포인트 지급" in selected_products:
     df_applied.loc[df_applied["HasCrCard"] == 0, "Point Earned"] += 40
     df_applied.loc[df_applied["HasCrCard"] == 0, "HasCrCard"] = 1
-
-if "비활동 유저의 로열티 증가" in selected_products:
-    df_applied.loc[df_applied["IsActiveMember"] == 0, "Loyalty_Score"] += 2
-    df_applied.loc[df_applied["IsActiveMember"] == 0, "IsActiveMember"] = 1
-
 # ✅ 모델 예측을 위해 필요한 피처만 선택
 features = model.feature_names_in_
 df_original_input = df[features]
 df_applied_input = df_applied[features]
 
-# ✅ 모델을 사용하여 이탈 예측 수행
-df["Predicted_Exited"] = model.predict(df_original_input)
-df_applied["Predicted_Exited"] = model.predict(df_applied_input)
 
-# ✅ 이탈률 비교
-original_exit_rate = df["Predicted_Exited"].mean()
-new_exit_rate = df_applied["Predicted_Exited"].mean()
+######################################################################################################
 
-# st.pyplot(fig)
-# 📌 3️⃣ 금융상품 적용 전/후 이탈률 비교 그래프
-st.subheader("📉 금융상품 적용 전후 이탈률 비교")
 
-fig, ax = plt.subplots(figsize=(5, 4))  # ✅ 그래프 크기 조정
-colors = ["#FF4C4C", "#4CAF50"]  # ✅ 대비되는 강한 색상 적용
+# ✅ 이탈 고객 필터링
+exited_mem = df[df["Exited"] == 1].copy()
 
-bars = ax.bar(["금융상품 적용 전", "금융상품 적용 후"], [original_exit_rate, new_exit_rate], color=colors, alpha=0.85, width=0.5)
+# ✅ 금융상품 적용 전 이탈 확률 계산
+prob_original = model.predict_proba(exited_mem[features])[:, 1]
 
-# ✅ Y축 범위 조정 (이탈률 차이를 강조)
-ax.set_ylim(min(original_exit_rate, new_exit_rate) - 0.01, max(original_exit_rate, new_exit_rate) + 0.01)
+# ✅ 금융상품 적용 후 데이터 변경
+if "이탈 고객 활동 멤버 전환" in selected_products:
+    exited_mem.loc[exited_mem["IsActiveMember"] == 0, "IsActiveMember"] = 1
+
+if "연이율 3% 복리 금융상품 가입 (2년)" in selected_products:
+    exited_mem["Balance"] *= 1.0609
+    exited_mem["Tenure"] += 2
+
+if "신용카드 신규 가입 + 포인트 지급" in selected_products:
+    exited_mem.loc[exited_mem["HasCrCard"] == 0, "Point Earned"] += 40
+    exited_mem.loc[exited_mem["HasCrCard"] == 0, "HasCrCard"] = 1
+
+# ✅ 금융상품 적용 후 이탈 확률 예측
+prob_applied = model.predict_proba(exited_mem[features])[:, 1]
+
+# ✅ 이탈률 비교 (평균값)
+original_exit_rate = np.mean(prob_original)
+new_exit_rate = np.mean(prob_applied)
+
+# ✅ 이탈 확률 감소 고객 수 및 평균 감소량 계산
+reduced_exit_count = np.sum(prob_applied < prob_original)
+total_exit_count = len(prob_original)
+reduced_exit_ratio = reduced_exit_count / total_exit_count * 100
+prob_change = np.mean(prob_original - prob_applied)
+
+# ✅ 📊 이탈 확률 변화 그래프 시각화
+st.subheader("📉 금융상품 적용 전후 이탈 확률 비교")
+fig, ax = plt.subplots(figsize=(6, 4))
+bars = ax.bar(["금융상품 적용 전", "금융상품 적용 후"], 
+              [original_exit_rate, new_exit_rate], 
+              color=["#FF6F61", "#6B8E23"], alpha=0.85, width=0.5)
 
 for bar in bars:
     height = bar.get_height()
-    ax.text(bar.get_x() + bar.get_width()/2, height + 0.002, f"{height:.2%}", ha="center", fontsize=12, fontweight="bold", color="black")
+    ax.text(bar.get_x() + bar.get_width()/2, height + 0.01, f"{height:.2%}", 
+            ha="center", fontsize=12, fontweight="bold", color="black")
 
-# # ✅ 이탈률 감소 강조 텍스트 추가
-# ax.text(0.5, max(original_exit_rate, new_exit_rate) + 0.005, "📉 이탈률 감소!", fontsize=14, fontweight="bold", color="blue", ha="center")
-
-ax.set_ylabel("평균 이탈률", fontsize=12, fontweight="bold")
+ax.set_ylabel("평균 이탈 확률", fontsize=12, fontweight="bold")
 ax.set_title("금융상품 적용에 따른 이탈률 변화", fontsize=14, fontweight="bold", pad=15)
-ax.tick_params(axis="x", labelsize=11)
-ax.tick_params(axis="y", labelsize=11)
 
 st.pyplot(fig)
 
+# ✅ 📌 이탈 확률 감소 데이터 출력
+st.write(f"금융상품 적용 전 평균 이탈 확률: **{original_exit_rate:.2%}**")
+st.write(f"금융상품 적용 후 평균 이탈 확률: **{new_exit_rate:.2%}**")
+st.write(f"이탈 확률 감소 고객 수: **{reduced_exit_count}/{total_exit_count}명**")
+st.write(f"이탈 확률 감소 비율: **{reduced_exit_ratio:.2f}%**")
+st.write(f"평균 이탈 확률 감소량: **{prob_change:.2%}**")
+
+# ✅ 이탈률 감소 효과에 따른 예상 추가 수익 계산
+st.subheader("💰 금융상품 도입 시 예상 이익 분석")
 
 # 📌 한국 주요 은행 연평균 매출 데이터 (조 원 단위)
 bank_revenue_range = (30e12, 40e12)  # 30~40조 원
 average_customer_range = (15000000, 20000000)  # 고객 수 1500~2000만 명
 
 # ✅ 1인당 연평균 매출(ARPU) 계산
-min_arpu = bank_revenue_range[0] / average_customer_range[1]  # 최소 추정값
-max_arpu = bank_revenue_range[1] / average_customer_range[0]  # 최대 추정값
+min_arpu = bank_revenue_range[0] / average_customer_range[1]
+max_arpu = bank_revenue_range[1] / average_customer_range[0]
 
-# 📌 실제 은행 이용 고객 수 반영
-actual_total_customers = 15000000  # 실제 은행 고객 수 (1500만 명)
+# ✅ 실제 은행 이용 고객 수 반영
+actual_total_customers = 15000000  # 1500만 명
+cluster_customer_ratio = 0.24  # 분석 대상 고객군 비율
+scaled_total_customers = actual_total_customers * cluster_customer_ratio
 
-# ✅ 현재 데이터셋이 전체 고객의 약 24%를 차지하는 클러스터에 대한 결과임을 반영
-cluster_customer_ratio = 0.24  # 전체 고객 중 해당 군집이 차지하는 비율
-scaled_total_customers = actual_total_customers * cluster_customer_ratio  # 조정된 고객 규모
-
-# ✅ 금융상품 적용 전후 이탈자 수 계산
+# ✅ 금융상품 적용 전후 예상 이탈자 수
 original_exited_count = original_exit_rate * scaled_total_customers
 new_exited_count = new_exit_rate * scaled_total_customers
 reduced_exited_count = original_exited_count - new_exited_count  # 줄어든 이탈자 수
 
 # ✅ 이탈자 감소 효과에 따른 수익 증가 계산
-average_revenue_per_customer = 500000  # 고객 1명당 평균 연매출 (50만원 가정)
-estimated_additional_revenue = reduced_exited_count * average_revenue_per_customer  # 예상 추가 수익
+average_revenue_per_customer = 500000  # 고객 1명당 평균 연매출 (50만 원 가정)
+estimated_additional_revenue = reduced_exited_count * average_revenue_per_customer
 
 # ✅ 금액을 읽기 쉽게 변환하는 함수
 def format_revenue(amount):
     """금액을 'X억 Y천만 원' 형식으로 변환"""
-    if amount >= 1_0000_0000:  # 1억 이상일 경우
-        eok = int(amount // 1_0000_0000)  # 억 단위 계산
-        chonman = int((amount % 1_0000_0000) // 1_0000_000)  # 천만 단위 계산
+    if amount >= 1_0000_0000:  
+        eok = int(amount // 1_0000_0000)
+        chonman = int((amount % 1_0000_0000) // 1_0000_000)
         return f"약 {eok}억 {chonman}천만 원" if chonman > 0 else f"약 {eok}억 원"
-    elif amount >= 1_0000_000:  # 1천만 이상일 경우
+    elif amount >= 1_0000_000:
         chonman = int(amount // 1_0000_000)
         return f"약 {chonman}천만 원"
     else:
         return f"약 {amount:,.0f} 원"
+# 📌 한국 주요 은행 연매출 데이터 (조 원 단위)
+bank_revenue_range = (30e12, 40e12)  # 30~40조 원
+average_customer_range = (15000000, 20000000)  # 고객 수 1500~2000만 명
 
-# 📌 사용자 입력을 통한 은행 매출 기반 ARPU 계산
-st.sidebar.subheader("📊 현실적인 ARPU 계산")
-total_bank_revenue = st.sidebar.number_input("은행 연매출 (조 원 단위)", min_value=10, max_value=50, value=35) * 1_0000_0000_0000
-total_bank_customers = st.sidebar.number_input("은행 총 고객 수 (만 명)", min_value=1000, max_value=3000, value=1500) * 10000
+# ✅ 1인당 연평균 매출(ARPU) 자동 계산
+min_arpu = bank_revenue_range[0] / average_customer_range[1]  # 최소 추정값 (150만 원)
+max_arpu = bank_revenue_range[1] / average_customer_range[0]  # 최대 추정값 (266만 원)
 
-# ✅ 사용자가 입력한 은행 매출 및 고객 수 기반 ARPU 계산
-calculated_arpu = total_bank_revenue / total_bank_customers
+# ✅ 현실적인 중간값 사용 (180만 원 적용)
+default_arpu = (min_arpu + max_arpu) / 2  # 180만 원
 
-st.sidebar.write(f"📌 계산된 1인당 연평균 매출 (ARPU): **{calculated_arpu:,.0f} 원**")
-
-# ✅ 고객 1명당 평균 연매출 (계산된 값 적용)
-average_revenue_per_customer = calculated_arpu  
-
-# ✅ Streamlit에서 ARPU 선택할 수 있도록 설정
-st.sidebar.header("📊 평균 고객 연매출 (ARPU) 설정")
+# 📌 사용자 입력을 통한 ARPU 조정 가능 (Streamlit 적용)
+st.sidebar.subheader("📊 평균 고객 연매출 (ARPU) 설정")
 selected_arpu = st.sidebar.slider(
     "1인당 연평균 매출 (ARPU) 설정",
     min_value=int(min_arpu),
     max_value=int(max_arpu),
-    value=3000000,  # 기본값: 300만 원
+    value=int(default_arpu),  # 기본값: 180만 원
     step=100000  # 10만 원 단위 조정 가능
 )
 
-# ✅ 이탈자 감소 효과에 따른 수익 증가 계산
-estimated_additional_revenue = reduced_exited_count * selected_arpu
+# ✅ ARPU 값 적용
+average_revenue_per_customer = selected_arpu
 
-# ✅ 가독성 높은 수익 표시
+# ✅ 예상 추가 수익 계산
+estimated_additional_revenue = reduced_exited_count * average_revenue_per_customer
+
+# ✅ 예상 추가 수익 출력
 st.subheader("💰 금융상품 도입 시 예상 이익 분석")
-st.markdown(f"""
-- **한국 주요 은행 연평균 매출**: 30~40조 원
-- **평균 고객 수**: 1500~2000만 명
-- **분석 대상 고객군 비율**: 전체 고객의 약 **24%**
-- **조정된 총 고객 수 (적용 대상 클러스터)**: **{scaled_total_customers:,.0f} 명**
-- **추정 1인당 연매출 (ARPU)**: {selected_arpu:,.0f} 원
-- 금융상품 적용 전 예상 이탈자 수: **{original_exited_count:,.0f} 명**
-- 금융상품 적용 후 예상 이탈자 수: **{new_exited_count:,.0f} 명**
-- **줄어든 이탈자 수: {reduced_exited_count:,.0f} 명**
-- **추가 예상 이익: {format_revenue(estimated_additional_revenue)}**
-""")
+st.write(f"**줄어든 이탈자 수:** {reduced_exited_count:,.0f} 명")
+st.write(f"**추정 1인당 연매출 (ARPU):** {average_revenue_per_customer:,.0f} 원")
+st.write(f"**추가 예상 이익:** {format_revenue(estimated_additional_revenue)}")
 
 
 # 📌 5️⃣ 인사이트 및 결론

@@ -27,8 +27,8 @@ st.set_page_config(page_title="Churn Prediction", layout="wide")
 # st.image(cluster3_model_lgbm, caption="클러스터링 최적화 분석 결과", width=200, use_container_width=True)
 
 # ✅ 이미지 경로 설정
-cluster0_model_lgbm_path = os.path.join(BASE_DIR, "streamlit/img", "cluster0_model_lgbm.png")
-cluster3_model_lgbm_path = os.path.join(BASE_DIR, "streamlit/img", "cluster3_model_lgbm.png")
+cluster0_model_lgbm_path = os.path.join(BASE_DIR, "streamlit/img", "cluster0_model_rf_comparison.jpg")
+cluster3_model_lgbm_path = os.path.join(BASE_DIR, "streamlit/img", "cluster3_model_rf_comparison.jpg")
 
 # ✅ 이미지 크기 조절 함수
 def resize_image(image_path, scale=0.5):
