@@ -496,6 +496,7 @@ Complain에 5e-5을 더해주는 이유는 Complain이 0을 차지하는 비중�
 
 >조영훈 : 모델식을 직접 feature를 바꿔가면서 만드는게 재밌는 경험이었던 것 같습니다. 아이디어 내는거를 좋아하는 편인데 이것저것 다양한 시도를 할 수있어서 재밌는 프로젝트였습니다!<br>
 
+---
+
 # [은행 가입 고객 이탈 예측 - kaggle](https://www.kaggle.com/code/bbksjdd/telco-customer-churn)
 
----
