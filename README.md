@@ -28,7 +28,7 @@
 >      <td align="center">
 >          <img alt="Image" src="https://github.com/user-attachments/assets/1d433d60-8af5-4619-82a6-01d176bc2b00" width="200px;" alt="박유진"/>
 >      <td align="center">
->          <img alt="Image" src="https://github.com/user-attachments/assets/a56c575d-c9e4-4c86-b7d5-4d8d9bd98127" width="200px;" alt="서예찬"/>
+>          <img alt="Image" src="https://github.com/user-attachments/assets/a56c575d-c9e4-4c86-b7d5-4d8d9bd98127" width="200px;" alt="김민혜"/>
 >      </td>
 >      <td align="center">
 >        <img alt="Image" src="https://github.com/user-attachments/assets/60cacd87-c100-4e8e-ba64-cd68acc4aa97" width="200px;"alt="조이현" />
@@ -45,7 +45,7 @@
 >    </tr>
 >    <tr>
 >      <td><a href="https://github.com/YUJINDL01"><div align=center>@YUJINDL01</div></a></td>
->      <td><a href="https://github.com/syc9811"><div align=center>@syc9811</div></a></td>
+>      <td><a href="https://github.com/kkminhye"><div align=center>@kkminhye</div></a></td>
 >      <td><a href="https://github.com/SIQRIT"><div align=center>@SIQRIT</div></a></td>
 >      <td><a href="https://github.com/devunis"><div align=center>@devunis</div></a></td>
 >      <td><a href="https://github.com/SIQRIT"><div align=center>@SIQRIT</div></a></td>
@@ -151,8 +151,9 @@ Sage Journal - *Reducing Adverse Selection through Customer Relationship Managem
 ---
 
 # 3. WBS
-><br>
->
+
+![WBS](https://raw.githubusercontent.com/SKNETWORKS-FAMILY-AICAMP/SKN10-2nd-4Team/feature-minhye/streamlit/img/SKN10_2nd_project_WBS.png)
+
 
 
 ---
@@ -218,7 +219,7 @@ Sage Journal - *Reducing Adverse Selection through Customer Relationship Managem
 
 # 7. 한 줄 회고
 >박유진: Logis<br>
->서예찬: 이번미터 조정 등을 통해 model의 성능을 높이는 과정에 대해 이해도가 높아진 것 같다. <br>
+>김민혜: 통찰력있는 아이디어와 리더십으로 이끌어준 팀장님과 실력있고 성실한 팀원들 덕분에 2번째 단위 프로젝트를 잘 진행할 수 있어서 정말 좋았습니다. 프로젝트를 수행하며 머신러닝을 한 층더 배우고 이해할 수 있게 되었습니다. <br>
 >조이현: EDA 과정 <br>
 >허정윤: 앙상블 모델을 voting <br>
 >조이현: EDA 과정 <br>
