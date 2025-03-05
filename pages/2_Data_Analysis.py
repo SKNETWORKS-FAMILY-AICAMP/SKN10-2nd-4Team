@@ -129,29 +129,56 @@ total_exit_count = len(prob_original)
 reduced_exit_ratio = reduced_exit_count / total_exit_count * 100
 prob_change = np.mean(prob_original - prob_applied)
 
-# ✅ 📊 이탈 확률 변화 그래프 시각화
-st.subheader("📉 금융상품 적용 전후 이탈 확률 비교")
+# # ✅ 📊 이탈 확률 변화 그래프 시각화
+# st.subheader("📉 금융상품 적용 전후 이탈 확률 비교")
+# fig, ax = plt.subplots(figsize=(6, 4))
+# bars = ax.bar(["금융상품 적용 전", "금융상품 적용 후"], 
+#               [original_exit_rate, new_exit_rate], 
+#               color=["#FF6F61", "#6B8E23"], alpha=0.85, width=0.5)
+
+# for bar in bars:
+#     height = bar.get_height()
+#     ax.text(bar.get_x() + bar.get_width()/2, height + 0.01, f"{height:.2%}", 
+#             ha="center", fontsize=12, fontweight="bold", color="black")
+
+# ax.set_ylabel("평균 이탈 확률", fontsize=12, fontweight="bold")
+# ax.set_title("금융상품 적용에 따른 이탈률 변화", fontsize=14, fontweight="bold", pad=15)
+
+# st.pyplot(fig)
+
+# ✅ 잔존 확률 계산 (이탈 확률의 반대값)
+original_stay_rate = 1 - original_exit_rate
+new_stay_rate = 1 - new_exit_rate
+prob_change = new_stay_rate - original_stay_rate  # 잔존 확률 증가량
+
+# ✅ 📊 금융상품 적용 전후 잔존 확률 비교 차트
+st.subheader("📈 금융상품 적용 전후 고객 잔존 확률 비교")
+
 fig, ax = plt.subplots(figsize=(6, 4))
 bars = ax.bar(["금융상품 적용 전", "금융상품 적용 후"], 
-              [original_exit_rate, new_exit_rate], 
-              color=["#FF6F61", "#6B8E23"], alpha=0.85, width=0.5)
+              [original_stay_rate, new_stay_rate], 
+              color=["#4682B4", "#32CD32"], alpha=0.85, width=0.5)
 
 for bar in bars:
     height = bar.get_height()
     ax.text(bar.get_x() + bar.get_width()/2, height + 0.01, f"{height:.2%}", 
             ha="center", fontsize=12, fontweight="bold", color="black")
 
-ax.set_ylabel("평균 이탈 확률", fontsize=12, fontweight="bold")
-ax.set_title("금융상품 적용에 따른 이탈률 변화", fontsize=14, fontweight="bold", pad=15)
+ax.set_ylim(0, 0.5)
+
+ax.set_ylabel("평균 잔존 확률", fontsize=12, fontweight="bold")
+ax.set_title("금융상품 적용에 따른 고객 잔존율 변화", fontsize=14, fontweight="bold", pad=15)
 
 st.pyplot(fig)
 
+
 # ✅ 📌 이탈 확률 감소 데이터 출력
-st.write(f"금융상품 적용 전 평균 이탈 확률: **{original_exit_rate:.2%}**")
-st.write(f"금융상품 적용 후 평균 이탈 확률: **{new_exit_rate:.2%}**")
-st.write(f"이탈 확률 감소 고객 수: **{reduced_exit_count}/{total_exit_count}명**")
-st.write(f"이탈 확률 감소 비율: **{reduced_exit_ratio:.2f}%**")
-st.write(f"평균 이탈 확률 감소량: **{prob_change:.2%}**")
+st.write(f"금융상품 적용 전 평균 잔존 확률: **{original_stay_rate:.2%}**")
+st.write(f"금융상품 적용 후 평균 잔존 확률: **{new_stay_rate:.2%}**")
+st.write(f"잔존 확률 증가 고객 수: **{reduced_exit_count}/{total_exit_count}명**")
+st.write(f"잔존 확률 증가 비율: **{reduced_exit_ratio:.2f}%**")
+st.write(f"평균 잔존 확률 증가량: **{prob_change:.2%}**")
+
 
 # ✅ 이탈률 감소 효과에 따른 예상 추가 수익 계산
 st.subheader("💰 금융상품 도입 시 예상 이익 분석")
@@ -218,22 +245,21 @@ average_revenue_per_customer = selected_arpu
 estimated_additional_revenue = reduced_exited_count * average_revenue_per_customer
 
 # ✅ 예상 추가 수익 출력
-st.subheader("💰 금융상품 도입 시 예상 이익 분석")
 st.write(f"**줄어든 이탈자 수:** {reduced_exited_count:,.0f} 명")
 st.write(f"**추정 1인당 연매출 (ARPU):** {average_revenue_per_customer:,.0f} 원")
-st.write(f"**추가 예상 이익:** {format_revenue(estimated_additional_revenue)}")
+# st.write(f"**추가 예상 이익:** {format_revenue(estimated_additional_revenue)}")
 
 
 # 📌 5️⃣ 인사이트 및 결론
 if st.button("📢 인사이트 및 결론 보기"):
     st.subheader("📢 인사이트 및 결론")
 
-    # ✅ 이탈률 변화 강조
+    # ✅ 잔존율 변화 강조
     st.markdown(f"""
     <div style="text-align:center; font-size:22px;">
-        <b>📉 금융상품 적용 후 <span style="color:#FF5733;">이탈률 감소</span> 확인!</b><br>
-        <span style="font-size:26px; font-weight:bold; color:#FF5733;">
-            {original_exit_rate:.2%} → {new_exit_rate:.2%}
+        <b>📈 금융상품 적용 후 <span style="color:#008000;">잔존율 증가</span> 확인!</b><br>
+        <span style="font-size:26px; font-weight:bold; color#008000;">
+            {original_stay_rate:.2%} → {new_stay_rate:.2%}
         </span>
     </div>
     """, unsafe_allow_html=True)
@@ -242,7 +268,7 @@ if st.button("📢 인사이트 및 결론 보기"):
     st.markdown("""
     ---
     ✅ **금융상품 적용 효과**
-    - 고객의 **신용등급 상승, 금융상품 개수 증가, 로열티 점수 증가**가 **이탈 감소**에 긍정적 영향을 미쳤음.
+    - 고객의 **신용등급 상승, 금융상품 개수 증가, 로열티 점수 증가**가 **잔존율 증가**에 긍정적 영향을 미쳤음.
     - 금융상품 적용을 통해 **고객 유지율**이 향상됨.
 
     ✅ **1000만 명 기준 예상 효과**
@@ -260,5 +286,14 @@ if st.button("📢 인사이트 및 결론 보기"):
 
     """, unsafe_allow_html=True)
 
-    # ✅ 다음 단계 제시
-    st.success("💡 **다음 단계:** 이탈 가능성이 높은 고객을 대상으로 맞춤형 금융상품 추천 및 전략 수립 🚀")
+if st.button("추가 예상 이익"):
+     # ✅ 추가 예상 이익 한 줄 출력
+    st.markdown(f"""
+    <div style="text-align:center; font-size:22px;">
+        <b>💰  <span style="color:#008000;">추가 예상 이익</span></b><br>
+        <span style="font-size:26px; font-weight:bold; color:#008000;">
+            {format_revenue(estimated_additional_revenue)}
+        </span>
+    </div>
+    """, unsafe_allow_html=True)
+

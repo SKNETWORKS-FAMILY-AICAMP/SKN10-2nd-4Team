@@ -217,7 +217,7 @@ Sage Journal - *Reducing Adverse Selection through Customer Relationship Managem
 
 
 # 7. 한 줄 회고
->편성민민: Logis<br>
+>편성민:이번 프로젝트는 데이터 선택부터 전체 기획까지 적극적으로 참여해서 진행했습니다. 해보고 싶은게 많아서 팀장 역할을 맡아 일을 늘렸습니다.<br>
 >: 이번미터 조정 등을 통해 model의 성능을 높이는 과정에 대해 이해도가 높아진 것 같다. <br>
 >: EDA 과정 <br>
 >: 앙상블 모델을 voting <br>
