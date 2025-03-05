@@ -26,22 +26,22 @@
 >    </tr>
 >    <tr>
 >        <td align="center">
->        <img alt="팀장: 편성민" src="https://github.com/user-attachments/assets/3d06d502-2cf6-40a0-889f-9ad945bd36fc" width="200px;" height="200px;" />
+>        <img alt="팀장: 편성민" src="https://github.com/user-attachments/assets/3d06d502-2cf6-40a0-889f-9ad945bd36fc" width="200px;" height="150px;" />
 >        </td>
 >        <td align="center">
->        <img alt="팀원: 이종원" src="https://github.com/user-attachments/assets/90c1fe3e-69ef-4f36-bc8f-82b122c38867" width="200px;" height="200px;" />
+>        <img alt="팀원: 이종원" src="https://github.com/user-attachments/assets/90c1fe3e-69ef-4f36-bc8f-82b122c38867" width="200px;" height="150px;" />
 >        </td>
 >        <td align="center">
->        <img alt="팀원: 문승기" src="https://github.com/user-attachments/assets/c3543b79-3ed2-4c4c-8e0c-e34ca014bc4d" width="200px;" height="200px;" />
+>        <img alt="팀원: 문승기" src="https://github.com/user-attachments/assets/c3543b79-3ed2-4c4c-8e0c-e34ca014bc4d" width="200px;" height="150px;" />
 >        </td>
 >        <td align="center">
->        <img alt="팀원: 조영훈" src="https://github.com/user-attachments/assets/6ec1521a-55ea-4806-9100-3c896093b713" width="200px;" height="200px;" />
+>        <img alt="팀원: 조영훈" src="https://github.com/user-attachments/assets/6ec1521a-55ea-4806-9100-3c896093b713" width="200px;" height="150px;" />
 >        </td>
 >        <td align="center">
->        <img alt="팀원: 이태수" src="https://github.com/user-attachments/assets/75c8c731-f576-41cd-ac43-d3e1e466dbb6" width="200px;" height="200px;" />
+>        <img alt="팀원: 이태수" src="https://github.com/user-attachments/assets/75c8c731-f576-41cd-ac43-d3e1e466dbb6" width="200px;" height="150px;" />
 >        </td>
 >        <td align="center">
->        <img alt="팀원: 김민혜" src="https://github.com/user-attachments/assets/a1ebd4b8-f455-4be7-89b3-b28f650e14e0" width="200px;" height="200px;" />
+>        <img alt="팀원: 김민혜" src="https://github.com/user-attachments/assets/a1ebd4b8-f455-4be7-89b3-b28f650e14e0" width="200px;" height="150px;" />
 >        </td>
 >    </tr>
 >    <tr>
