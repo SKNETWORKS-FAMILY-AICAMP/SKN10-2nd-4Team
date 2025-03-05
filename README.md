@@ -150,8 +150,8 @@ Sage Journal - *Reducing Adverse Selection through Customer Relationship Managem
 ---
 
 # 3. WBS
-><br>
->
+
+![WBS](https://raw.githubusercontent.com/SKNETWORKS-FAMILY-AICAMP/SKN10-2nd-4Team/feature-minhye/streamlit/img/SKN10_2nd_project_WBS.png)
 
 
 ---
@@ -502,7 +502,7 @@ Complain에 5e-5을 더해주는 이유는 Complain이 0을 차지하는 비중�
 >: EDA 과정 <br>
 >: 앙상블 모델을 voting <br>
 >: EDA 과정 <br>
->: 앙상블 모델을 voting <br>
+>김민혜: 통찰력있는 아이디어와 리더십으로 이끌어준 팀장님과 실력있고 성실한 팀원들 덕분에 2번째 단위 프로젝트를 잘 진행할 수 있어서 정말 좋았습니다. 프로젝트를 수행하며 머신러닝을 한 층더 배우고 이해할 수 있게 되었습니다. <br>
 >문승기: 부족한 실력이라 열심히 참여하는게 전부였는데 좋게 봐주시고, 제가 할 수 있는 최선을 다했다고 생각이 들어 뿌듯했습니다. 또한, 다양한 관점에서 프로젝트를 바라볼 수 있는 좋은 기회였다고 생각합니다.
 <br>
 # [가입 고객 이탈 예측](https://www.kaggle.com/code/bbksjdd/telco-customer-churn)
